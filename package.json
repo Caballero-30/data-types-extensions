@@ -1,0 +1,38 @@
+{
+  "name": "data-types-extensions",
+  "version": "1.0.0",
+  "description": "Kotlin-like extensions for data types",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caballero-30/data-types-extensions.git"
+  },
+  "keywords": [
+    "kotlin",
+    "functions",
+    "extension",
+    "util",
+    "data",
+    "types"
+  ],
+  "author": "Caballero-30",
+  "bugs": {
+    "url": "https://github.com/Caballero-30/data-types-extensions/issues"
+  },
+  "homepage": "https://github.com/Caballero-30/data-types-extensions#readme",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
+  },
+  "files": [
+    "dist"
+  ]
+}
