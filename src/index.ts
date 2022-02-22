@@ -74,7 +74,7 @@ declare global {
         contains(this: String, s: string, ignoreCase?: boolean): boolean
         /**
          * Returns `true` if the string ends with the sentence specified
-         * @param s - 
+         * @param s - The sentence to search for in the end of string
          * @param ignoreCase - `true` to ignore case. By default `false`
          * @returns `true` if the string ends with the sentence specified, otherwise `false`
          */
@@ -84,6 +84,11 @@ declare global {
          * @returns `true` if the string is empty, otherwise `false`
          */
         isEmpty(this: String): boolean
+        /**
+         * Returns `true` if the string is empty or contains whitespace characters
+         * @returns `true` if the string is empty or contains whitespace characters, otherwise `false`
+         */
+        isBlank(this: String): boolean
     }
     interface Number {
         /**
@@ -120,6 +125,17 @@ declare global {
          * @returns The new array without the specified elements
          */
         minus(this: Array<T>, elements: Array<T>): Array<T>
+        /**
+         * Returns `true` if the array has not elements
+         * @returns `true` if the array is empty, `false` otherwise
+         */
+        isEmpty(this: Array<T>): Boolean
+        /**
+         * Returns `true` if the array contains the element specified
+         * @param element - The element to search for in the string
+         * @returns `true` if the array contains the element specified, otherwise `false`
+         */
+         contains(this: Array<T>, element: T): Boolean
     }
 }
 
@@ -140,6 +156,7 @@ String.prototype.endsWith = function(this, s, ignoreCase = false) {
     else return this.indexOf(s) == this.length - 1
 }
 String.prototype.isEmpty = function() { return this == '' }
+String.prototype.isBlank = function() { return !this.replace(/\s/g, '').length }
 
 Number.prototype.isDecimal = function(this) { return this as number % 1 != 0 ? true : false }
 Number.prototype.toInt = function(this, radix) { return parseInt(this.toString(), radix) }
@@ -155,3 +172,5 @@ Array.prototype.minus = function(this, elements) {
     })
     return newArray
 }
+Array.prototype.isEmpty = function(this) { return this.length == 0 }
+Array.prototype.contains = function(this, element) { return this.indexOf(element) >= 0 }

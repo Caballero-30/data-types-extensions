@@ -45,14 +45,21 @@ describe('String', () => {
         expect(''.isEmpty()).toBe(true)
         expect('Filled'.isEmpty()).toBe(false)
     })
+
+    test('String.isBlank()', () => {
+        expect(''.isBlank()).toBe(true)
+        expect(' '.isBlank()).toBe(true)
+        expect('\n'.isBlank()).toBe(true)
+        expect('\t'.isBlank()).toBe(true)
+
+        expect('Not blank'.isBlank()).toBe(false)
+    })
 })
 
 describe('Number', () => {
     test('Number.isDecimal()', () => {
-        const num = 10
-
         expect(10.6.isDecimal()).toBe(true)
-        expect(num.isDecimal()).toBe(false)
+        expect((10).isDecimal()).toBe(false)
     })
 
     test('Number.toInt()', () => {
@@ -75,6 +82,16 @@ describe('Array', () => {
     test('Array.minus(a)', () => {
         expect([0, 1, 2, 3, 4].minus([3, 4])).toStrictEqual([0, 1, 2])
         expect(langs.minus([langs[0]])).toStrictEqual([langs[1]])
+    })
+
+    test('Array.isEmpty()', () => {
+        expect([].isEmpty()).toBe(true)
+        expect([0, 2, 4].isEmpty()).toBe(false)
+    })
+
+    test('Array.contains(e)', () => {
+        expect(langs.contains(langs[0])).toBe(true)
+        expect(langs.contains({ language: 'Java', creator: 'Oracle' })).toBe(false)
     })
 })
 
