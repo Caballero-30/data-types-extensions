@@ -136,6 +136,31 @@ declare global {
          * @returns `true` if the array contains the element specified, otherwise `false`
          */
          contains(this: Array<T>, element: T): Boolean
+         /**
+          * Returns the smallest element in the array or `null` if the array has not elements
+          * @returns the smallest element or `null` if the array is empty
+          */
+         minOrNull(this: Array<number>): number | null
+         /**
+          * Returns the largest element in the array or `null` if the array has not elements
+          * @returns the largest element or `null` if the array is empty
+          */
+         maxOrNull(this: Array<number>): number | null
+         /**
+          * Returns an average of the elements in the array
+          * @returns an average of elements in the array
+          */
+         average(this: Array<number>): number
+         /**
+          * Returns the sum of all elements in the array
+          * @returns the sum of elements in the array
+          */
+         sum(this: Array<number>): number
+         /**
+          * Returns the number of elements in the array
+          * @returns the count of elements in the array
+          */
+         count(this: Array<number>): number
     }
 }
 
@@ -174,3 +199,8 @@ Array.prototype.minus = function(this, elements) {
 }
 Array.prototype.isEmpty = function(this) { return this.length == 0 }
 Array.prototype.contains = function(this, element) { return this.indexOf(element) >= 0 }
+Array.prototype.minOrNull = function(this) { return this.isEmpty() ? null : Math.min(...this) }
+Array.prototype.maxOrNull = function(this) { return this.isEmpty() ? null : Math.max(...this) }
+Array.prototype.average = function(this) { return this.sum() / this.count() }
+Array.prototype.sum = function(this) { return this.reduce((partialSum, a) => partialSum + a, 0) }
+Array.prototype.count = function(this) { return this.length }

@@ -73,6 +73,7 @@ describe('Array', () => {
         { language: 'Go', creator: 'Google' }
     ]
     const moreLangs = [...langs, { language: 'Kotlin', creator: 'JetBrains' }]
+    const numbers = [6, 42, 10, 4]
 
     test('Array.plus(a)', () => {
         expect([0, 1, 2].plus([3, 4])).toStrictEqual([0, 1, 2, 3, 4])
@@ -92,6 +93,28 @@ describe('Array', () => {
     test('Array.contains(e)', () => {
         expect(langs.contains(langs[0])).toBe(true)
         expect(langs.contains({ language: 'Java', creator: 'Oracle' })).toBe(false)
+    })
+
+    test('Array.minOrNull()', () => {
+        expect(numbers.minOrNull()).toBe(4)
+        expect([].minOrNull()).toBeNull()
+    })
+
+    test('Array.maxOrNull()', () => {
+        expect(numbers.maxOrNull()).toBe(42)
+        expect([].maxOrNull()).toBeNull()
+    })
+
+    test('Array.average()', () => {
+        expect(numbers.average()).toBe(15.5)
+    })
+
+    test('Array.sum()', () => {
+        expect(numbers.sum()).toBe(62)
+    })
+
+    test('Array.count()', () => {
+        expect(numbers.count()).toBe(4)
     })
 })
 
