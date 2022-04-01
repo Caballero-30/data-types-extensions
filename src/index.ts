@@ -89,6 +89,16 @@ declare global {
          * @returns `true` if the string is empty or contains whitespace characters, otherwise `false`
          */
         isBlank(this: String): boolean
+        /**
+         * Returns `true` if the string has characters
+         * @returns `true` if the string is not empty, otherwise `false`
+         */
+        isNotEmpty(this: String): boolean
+        /**
+         * Returns `true` if the string is not empty and does not contain whitespace characters
+         * @returns `true` if the string is not empty and not contains whitespace characters, otherwise `false`
+         */
+        isNotBlank(this: String): boolean
     }
     interface Number {
         /**
@@ -102,6 +112,12 @@ declare global {
          * @returns An integer of the specified radix
          */
         toInt(this: Number, radix?: number): number
+        /**
+         * It uses {@link Math.pow} to return the result of the exponentiation
+         * @param x - The exponent
+         * @returns The result of the exponentiation
+         */
+        pow(this: Number, x: number): number
     }
     interface Date {
         /**
@@ -161,6 +177,15 @@ declare global {
           * @returns the count of elements in the array
           */
          count(this: Array<number>): number
+         /**
+          * Returns `true` if the array has elements
+          * @returns `true` if the array is not empty, otherwise `false`
+          */
+         isNotEmpty(this: Array<T>): boolean
+         /**
+          * Removes all elements from the array
+          */
+         clear(this: Array<T>): void
     }
 }
 
@@ -182,9 +207,12 @@ String.prototype.endsWith = function(this, s, ignoreCase = false) {
 }
 String.prototype.isEmpty = function() { return this == '' }
 String.prototype.isBlank = function() { return !this.replace(/\s/g, '').length }
+String.prototype.isNotEmpty = function() { return !this.isEmpty() }
+String.prototype.isNotBlank = function() { return !this.isBlank()  }
 
 Number.prototype.isDecimal = function(this) { return this as number % 1 != 0 ? true : false }
 Number.prototype.toInt = function(this, radix) { return parseInt(this.toString(), radix) }
+Number.prototype.pow = function(this, x) { return Math.pow(this as number, x) }
 
 Date.prototype.toFormattedDate = function(this, formatOptions, separator) { return formatDate(this, formatOptions, separator) }
 
@@ -204,3 +232,5 @@ Array.prototype.maxOrNull = function(this) { return this.isEmpty() ? null : Math
 Array.prototype.average = function(this) { return this.sum() / this.count() }
 Array.prototype.sum = function(this) { return this.reduce((partialSum, a) => partialSum + a, 0) }
 Array.prototype.count = function(this) { return this.length }
+Array.prototype.isNotEmpty = function(this) { return !this.isEmpty() }
+Array.prototype.clear = function(this) { this.length = 0 }

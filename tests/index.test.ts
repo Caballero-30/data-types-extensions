@@ -54,6 +54,20 @@ describe('String', () => {
 
         expect('Not blank'.isBlank()).toBe(false)
     })
+
+    test('String.isNotEmpty()', () => {
+        expect('Filled'.isNotEmpty()).toBe(true)
+        expect(''.isNotEmpty()).toBe(false)
+    })
+
+    test('String.isNotBlank()', () => {
+        expect('Not blank'.isNotBlank()).toBe(true)
+
+        expect(''.isNotBlank()).toBe(false)
+        expect(' '.isNotBlank()).toBe(false)
+        expect('\n'.isNotBlank()).toBe(false)
+        expect('\t'.isNotBlank()).toBe(false)
+    })
 })
 
 describe('Number', () => {
@@ -64,6 +78,13 @@ describe('Number', () => {
 
     test('Number.toInt()', () => {
         expect(10.6.toInt()).toBe(10)
+    })
+
+    test('Number.pow(x)', () => {
+        expect((7).pow(3)).toBe(343)
+        expect((4).pow(0.5)).toBe(2)
+        expect((-4).pow(-2)).toBe(0.0625)
+        expect((-7).pow(0.5)).toBeNaN()
     })
 })
 
@@ -115,6 +136,16 @@ describe('Array', () => {
 
     test('Array.count()', () => {
         expect(numbers.count()).toBe(4)
+    })
+
+    test('Array.isNotEmpty()', () => {
+        expect([0, 2, 4].isNotEmpty()).toBe(true)
+        expect([].isNotEmpty()).toBe(false)
+    })
+
+    test('Array.clear()', () => {
+        langs.clear()
+        expect(langs).toHaveLength(0)
     })
 })
 
