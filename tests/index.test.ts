@@ -9,7 +9,19 @@ describe('String', () => {
     test('String.toBoolean()', () => {
         expect('true'.toBoolean()).toBe(true)
         expect('false'.toBoolean()).toBe(false)
-        expect('Value'.toBoolean).toThrowError()
+        expect('Value'.toBoolean()).toBe(false)
+    })
+
+    test('String.toBooleanStrict()', () => {
+        expect('true'.toBooleanStrict()).toBe(true)
+        expect('false'.toBooleanStrict()).toBe(false)
+        expect(() => 'Value'.toBooleanStrict()).toThrow("The string doesn't represent a boolean value")
+    })
+
+    test('String.toBooleanStrictOrNull()', () => {
+        expect('true'.toBooleanStrictOrNull()).toBe(true)
+        expect('false'.toBooleanStrictOrNull()).toBe(false)
+        expect('Value'.toBooleanStrictOrNull()).toBeNull()
     })
 
     test('String.toFormattedDate(f, s)', () => {

@@ -49,10 +49,21 @@ declare global {
          */
         toNumber(this: String): number
         /**
-         * Ignoring case, returns `true` if the string is equal to "true" and `false` if the string is equal to "false"
-         * @returns `true` if the string is equal to "true" or `false` if the string is equal to "false", ignoring case
+         * Ignoring case, returns `true` if the string is equal to "true"
+         * @returns `true` if the string is equal to "true", ignoring case, and `false` otherwise
          */
-        toBoolean(this: String): Boolean
+        toBoolean(this: String | never): Boolean
+        /**
+         * If the string is equal to "true", returns `true`, if it's equal to "false", returns `false`
+         * @returns `true` if the string is equal to "true", `false` if it is equal to "false"
+         * @throws {@link Error} if the string is not equal to "true" nor "false"
+         */
+        toBooleanStrict(this: String): Boolean
+        /**
+         * If the string is equal to "true", returns `true`, if it's equal to "false", returns `false`, otherwise returns `null`
+         * @returns `true` if the string is equal to "true", `false` if it is equal to "false" and `null` otherwise
+         */
+        toBooleanStrictOrNull(this: String): Boolean | null
         /**
          * Returns the formatted date as string
          * @param formatOptions - {@link DateFormatOptions}. By default `{ day: '2-digit', month: '2-digit', year: 'numeric' }`
@@ -190,10 +201,16 @@ declare global {
 }
 
 String.prototype.toNumber = function(this) { return Number(this) }
-String.prototype.toBoolean = function(this) {
-    if (this.toLowerCase() == 'true') return true
-    else if (this.toLowerCase() == 'false') return false
-    else throw Error
+String.prototype.toBoolean = function(this) { return this!.toLowerCase() == 'true' }
+String.prototype.toBooleanStrict = function(this) {
+    if (this == 'true') return true
+    else if (this == 'false') return false
+    else throw new Error("The string doesn't represent a boolean value")
+}
+String.prototype.toBooleanStrictOrNull = function(this) {
+    if (this == 'true') return true
+    else if (this == 'false') return false
+    else return null
 }
 String.prototype.toFormattedDate = function(this, formatOptions, separator) { return formatDate(this, formatOptions, separator) }
 String.prototype.toRegExp = function(this) { return RegExp(this as string) }
